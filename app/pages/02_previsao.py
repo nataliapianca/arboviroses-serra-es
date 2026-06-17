@@ -381,14 +381,20 @@ with tab_aval:
         line=dict(color=cor, width=2.5, dash="dash"),
     ))
 
-    # Linha de separação treino/teste
+   # 1. Converte a data do Pandas para milissegundos (float/int)
+    posicao_x_ms = r["teste"].index[0].value // 10**6
+
+    # 2. Adiciona a linha usando o valor numérico
     fig_eval.add_vline(
-        x=r["teste"].index[0],
+        x=posicao_x_ms,
         line_dash="dot", line_color="#8b949e", line_width=1,
         annotation_text="início do teste",
         annotation_font_color="#8b949e",
         annotation_font_size=11,
     )
+    
+    # 3. Força o tipo do eixo X a continuar sendo tratado como data
+    fig_eval.update_xaxes(type="date")
 
     fig_eval.update_layout(
         template="plotly_dark",
