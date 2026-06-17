@@ -23,28 +23,30 @@ st.set_page_config(
     initial_sidebar_state="collapsed",
 )
 
+# Alterado para fundo branco e letras escuras
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght=400;600&family=IBM+Plex+Sans:wght=300;400;500&display=swap');
 
 html, body, [class*="css"] { font-family: 'IBM Plex Sans', sans-serif; }
 
-.stApp { background: #0d1117; color: #e6edf3; }
+/* Fundo claro e texto principal escuro */
+.stApp { background: #ffffff; color: #1f2328; }
 
 h1, h2, h3, h4 {
     font-family: 'IBM Plex Mono', monospace !important;
-    color: #e6edf3 !important;
+    color: #1f2328 !important;
     letter-spacing: -0.02em;
 }
 
 [data-testid="metric-container"] {
-    background: #161b22;
-    border: 1px solid #21262d;
+    background: #f6f8fa;
+    border: 1px solid #d0d7de;
     border-radius: 10px;
     padding: 14px 18px;
 }
 [data-testid="metric-container"] label {
-    color: #8b949e !important;
+    color: #57606a !important;
     font-size: 12px !important;
     font-family: 'IBM Plex Mono', monospace !important;
     text-transform: uppercase;
@@ -53,51 +55,52 @@ h1, h2, h3, h4 {
 [data-testid="metric-container"] [data-testid="stMetricValue"] {
     font-family: 'IBM Plex Mono', monospace !important;
     font-size: 28px !important;
-    color: #e6edf3 !important;
+    color: #1f2328 !important;
 }
 
 div[data-testid="stTabs"] button {
     font-family: 'IBM Plex Mono', monospace !important;
     font-size: 13px;
-    color: #8b949e;
+    color: #57606a;
 }
 div[data-testid="stTabs"] button[aria-selected="true"] {
-    color: #58a6ff !important;
-    border-bottom-color: #58a6ff !important;
+    color: #0969da !important;
+    border-bottom-color: #0969da !important;
 }
 
 .stSelectbox > div > div, .stSlider { background: transparent !important; }
 
-hr { border-color: #21262d !important; }
+hr { border-color: #d0d7de !important; }
 
+/* Ajuste de contraste das caixas de alerta/informação */
 .info-box {
-    background: #161b22;
-    border: 1px solid #21262d;
-    border-left: 3px solid #58a6ff;
+    background: #f6f8fa;
+    border: 1px solid #d0d7de;
+    border-left: 3px solid #0969da;
     border-radius: 8px;
     padding: 12px 16px;
     font-size: 13px;
-    color: #8b949e;
+    color: #24292f;
     margin-bottom: 1rem;
 }
 .result-box {
-    background: #161b22;
-    border: 1px solid #21262d;
-    border-left: 3px solid #3fb950;
+    background: #f0fdf4;
+    border: 1px solid #2da44e;
+    border-left: 3px solid #1a7f37;
     border-radius: 8px;
     padding: 12px 16px;
     font-size: 13px;
-    color: #e6edf3;
+    color: #1a7f37;
     margin-bottom: 1rem;
 }
 .warn-box {
-    background: #161b22;
-    border: 1px solid #21262d;
-    border-left: 3px solid #d29922;
+    background: #fff8ec;
+    border: 1px solid #bf8700;
+    border-left: 3px solid #9a6700;
     border-radius: 8px;
     padding: 12px 16px;
     font-size: 13px;
-    color: #e6edf3;
+    color: #9a6700;
     margin-bottom: 1rem;
 }
 </style>
@@ -107,7 +110,8 @@ hr { border-color: #21262d !important; }
 # CONSTANTES
 # ─────────────────────────────────────────────────────────────────────────────
 DOENCAS = ["dengue", "zika", "chikungunya"]
-CORES   = {"dengue": "#f85149", "zika": "#3fb950", "chikungunya": "#d29922"}
+# Cores levemente ajustadas para melhor contraste em fundo claro
+CORES   = {"dengue": "#cf222e", "zika": "#1a7f37", "chikungunya": "#9a6700"}
 MESES_LABEL = ["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"]
 
 
@@ -116,17 +120,10 @@ MESES_LABEL = ["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov"
 # ─────────────────────────────────────────────────────────────────────────────
 @st.cache_data
 def load_data():
-    """
-    Carrega a série mensal real de casos (2015-2023).
-    Gerado a partir da API InfoDengue / Fiocruz para Serra/ES.
-
-    O CSV deve ter colunas: data, dengue, zika, chikungunya
-    """
     try:
-        df = pd.read_csv("dados/comparativo_mensal.csv", parse_dates=["data"])
+        df = pd.read_csv(r"C:\Users\Pichau\Documents\arboviroses-serra-es\serie-temporal\dados\comparativo_mensal.csv", parse_dates=["data"])
     except FileNotFoundError:
-        st.error("⚠️ Arquivo dados/comparativo_mensal.csv não encontrado. "
-                 "Coloque o CSV de dados reais na pasta `dados/`.")
+        st.error("⚠️ Arquivo dados/comparativo_mensal.csv não encontrado. Coloque o CSV de dados reais na pasta `dados/`.")
         st.stop()
 
     df = df.sort_values("data").reset_index(drop=True)
@@ -263,7 +260,7 @@ with tab1:
             mode="lines",
         ))
     fig_all.update_layout(
-        template="plotly_dark",
+        template="plotly_white", # Alterado para fundo claro
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
         legend=dict(orientation="h", y=1.1),
@@ -284,7 +281,7 @@ with tab1:
         fig_bar = px.bar(
             df_ano, x="ano", y=doenca,
             color_discrete_sequence=[cor],
-            template="plotly_dark",
+            template="plotly_white", # Alterado para fundo claro
             labels={"ano": "Ano", doenca: "Casos"},
         )
         fig_bar.update_layout(
@@ -303,7 +300,7 @@ with tab1:
             pivot,
             color_continuous_scale="Reds" if doenca == "dengue" else
                                    ("Greens" if doenca == "zika" else "Oranges"),
-            template="plotly_dark",
+            template="plotly_white", # Alterado para fundo claro
             labels=dict(color="Casos"),
             aspect="auto",
         )
@@ -331,7 +328,6 @@ with tab2:
     </div>
     """, unsafe_allow_html=True)
 
-    # Tabela comparativa das 3 doenças
     tabela_mk = pd.DataFrame([
         {
             "Doença": d.capitalize(),
@@ -347,7 +343,6 @@ with tab2:
 
     st.divider()
 
-    # Gráfico da série + reta de Sen para a doença selecionada
     st.subheader(f"Série + Tendência de Sen — {doenca.capitalize()}")
 
     serie_full = df_f[doenca].values
@@ -365,10 +360,10 @@ with tab2:
     fig_mk.add_trace(go.Scatter(
         x=df_f["data"], y=tendencia_vals,
         name=f"Tendência de Sen (slope={res['slope']:.3f}/mês)",
-        line=dict(color="#e6edf3", width=2.5, dash="dash"),
+        line=dict(color="#1f2328", width=2.5, dash="dash"), # Ajustado para linha escura
     ))
     fig_mk.update_layout(
-        template="plotly_dark",
+        template="plotly_white", # Alterado para fundo claro
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
         legend=dict(orientation="h", y=1.1),
@@ -379,7 +374,6 @@ with tab2:
     )
     st.plotly_chart(fig_mk, use_container_width=True)
 
-    # Caixa de interpretação dinâmica
     if res["significativo"]:
         st.markdown(f"""
         <div class="result-box">
@@ -418,7 +412,7 @@ with tab3:
     dec = decomp[doenca]
     comp_cols = st.columns(3)
     componentes = {"Tendência": dec["trend"], "Sazonalidade": dec["seasonal"], "Resíduo": dec["resid"]}
-    cores_comp = ["#58a6ff", "#3fb950", "#8b949e"]
+    cores_comp = ["#0969da", "#1a7f37", "#57606a"] # Ajustado para o tema claro
 
     for i, (nome, comp) in enumerate(componentes.items()):
         with comp_cols[i]:
@@ -429,10 +423,10 @@ with tab3:
                 mode="lines", name=nome,
             ))
             if nome == "Resíduo":
-                fig_c.add_hline(y=0, line_dash="dot", line_color="#8b949e", line_width=1)
+                fig_c.add_hline(y=0, line_dash="dot", line_color="#57606a", line_width=1)
             fig_c.update_layout(
                 title=dict(text=nome, font=dict(size=13)),
-                template="plotly_dark",
+                template="plotly_white", # Alterado para fundo claro
                 paper_bgcolor="rgba(0,0,0,0)",
                 plot_bgcolor="rgba(0,0,0,0)",
                 margin=dict(t=40, b=0, l=0, r=0),
@@ -443,7 +437,6 @@ with tab3:
 
     st.divider()
 
-    # Teste de sazonalidade (Kruskal-Wallis) + Força sazonal (Hyndman)
     st.subheader("Teste de Sazonalidade — Kruskal-Wallis")
     st.markdown("""
     <div class="info-box">
@@ -488,7 +481,6 @@ with tab3:
 
     st.divider()
 
-    # Padrão sazonal médio por mês
     st.subheader("Padrão médio por mês do ano")
     media_mes = df_f.groupby("mes")[doenca].mean()
     desvio_mes = df_f.groupby("mes")[doenca].std()
@@ -501,7 +493,7 @@ with tab3:
         marker_color=cor,
     ))
     fig_saz.update_layout(
-        template="plotly_dark",
+        template="plotly_white", # Alterado para fundo claro
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
         margin=dict(t=10, b=0),
@@ -509,13 +501,11 @@ with tab3:
         height=380,
     )
     st.plotly_chart(fig_saz, use_container_width=True)
-    st.caption(f" Mês de maior média histórica: **{mes_pico}** "
-               f"(mas lembre-se: força sazonal = {decomp[doenca]['fs']:.3f})")
+    st.caption(f" Mês de maior média histórica: **{mes_pico}** (força sazonal = {decomp[doenca]['fs']:.3f})")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
 # FOOTER
 # ─────────────────────────────────────────────────────────────────────────────
 st.divider()
-st.caption("FAESA · Projeto Integrador III · Ciência de Dados · 2025 · "
-           "Dados reais: InfoDengue/Fiocruz — Serra/ES (2015–2023)")
+st.caption("FAESA · Projeto Integrador III · Ciência de Dados · 2025 · Dados reais: InfoDengue/Fiocruz — Serra/ES (2015–2023)")

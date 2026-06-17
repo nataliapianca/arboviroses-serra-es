@@ -32,26 +32,27 @@ st.set_page_config(
 
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght=400;600&family=IBM+Plex+Sans:wght=300;400;500&display=swap');
 
 html, body, [class*="css"] { font-family: 'IBM Plex Sans', sans-serif; }
 
-.stApp { background: #0d1117; color: #e6edf3; }
+/* Fundo claro e texto principal escuro */
+.stApp { background: #ffffff; color: #1f2328; }
 
 h1, h2, h3, h4 {
     font-family: 'IBM Plex Mono', monospace !important;
-    color: #e6edf3 !important;
+    color: #1f2328 !important;
     letter-spacing: -0.02em;
 }
 
 [data-testid="metric-container"] {
-    background: #161b22;
-    border: 1px solid #21262d;
+    background: #f6f8fa;
+    border: 1px solid #d0d7de;
     border-radius: 10px;
     padding: 14px 18px;
 }
 [data-testid="metric-container"] label {
-    color: #8b949e !important;
+    color: #57606a !important;
     font-size: 12px !important;
     font-family: 'IBM Plex Mono', monospace !important;
     text-transform: uppercase;
@@ -60,31 +61,52 @@ h1, h2, h3, h4 {
 [data-testid="metric-container"] [data-testid="stMetricValue"] {
     font-family: 'IBM Plex Mono', monospace !important;
     font-size: 28px !important;
-    color: #e6edf3 !important;
+    color: #1f2328 !important;
 }
 
 div[data-testid="stTabs"] button {
     font-family: 'IBM Plex Mono', monospace !important;
     font-size: 13px;
-    color: #8b949e;
+    color: #57606a;
 }
 div[data-testid="stTabs"] button[aria-selected="true"] {
-    color: #58a6ff !important;
-    border-bottom-color: #58a6ff !important;
+    color: #0969da !important;
+    border-bottom-color: #0969da !important;
 }
 
 .stSelectbox > div > div, .stSlider { background: transparent !important; }
 
-hr { border-color: #21262d !important; }
+hr { border-color: #d0d7de !important; }
 
+/* Ajuste de contraste das caixas de alerta/informação */
 .info-box {
-    background: #161b22;
-    border: 1px solid #21262d;
-    border-left: 3px solid #58a6ff;
+    background: #f6f8fa;
+    border: 1px solid #d0d7de;
+    border-left: 3px solid #0969da;
     border-radius: 8px;
     padding: 12px 16px;
     font-size: 13px;
-    color: #8b949e;
+    color: #24292f;
+    margin-bottom: 1rem;
+}
+.result-box {
+    background: #f0fdf4;
+    border: 1px solid #2da44e;
+    border-left: 3px solid #1a7f37;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: #1a7f37;
+    margin-bottom: 1rem;
+}
+.warn-box {
+    background: #fff8ec;
+    border: 1px solid #bf8700;
+    border-left: 3px solid #9a6700;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: #9a6700;
     margin-bottom: 1rem;
 }
 </style>
