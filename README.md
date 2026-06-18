@@ -3,6 +3,8 @@
 Projeto desenvolvido para a disciplina **Projeto Integrador III – Ciência de Dados** da FAESA, curso de Ciência da Computação.
 **Orientador:** Prof. Howard Cruz
 
+## Vídeo de Apresentação: https://youtu.be/srIyH4ZBvvk
+
 ---
 
 ## 📌 Sobre o Projeto
